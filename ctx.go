@@ -13,11 +13,11 @@ import (
 	contracthttp "github.com/sujit-baniya/framework/contracts/http"
 )
 
-type FiberContext struct {
+type Context struct {
 	instance *fiber.Ctx
 }
 
-func (c *FiberContext) Origin() *http.Request {
+func (c *Context) Origin() *http.Request {
 	headers := make(map[string][]string)
 	for header, value := range c.instance.GetReqHeaders() {
 		headers[header] = []string{value}
@@ -38,47 +38,47 @@ func (c *FiberContext) Origin() *http.Request {
 	}
 }
 
-func NewFiberContext(ctx *fiber.Ctx) contracthttp.Context {
-	return &FiberContext{ctx}
+func NewContext(ctx *fiber.Ctx) contracthttp.Context {
+	return &Context{ctx}
 }
 
-func (c *FiberContext) WithValue(key string, value any) {
+func (c *Context) WithValue(key string, value any) {
 	c.instance.Context().SetUserValue(key, value)
 }
 
-func (c *FiberContext) Deadline() (deadline time.Time, ok bool) {
+func (c *Context) Deadline() (deadline time.Time, ok bool) {
 	return c.instance.Context().Deadline()
 }
 
-func (c *FiberContext) Done() <-chan struct{} {
+func (c *Context) Done() <-chan struct{} {
 	return c.instance.Context().Done()
 }
 
-func (c *FiberContext) Err() error {
+func (c *Context) Err() error {
 	return c.instance.Context().Err()
 }
 
-func (c *FiberContext) Value(key any) any {
+func (c *Context) Value(key any) any {
 	return c.instance.Context().Value(key)
 }
 
-func (c *FiberContext) Params(key string) string {
+func (c *Context) Params(key string) string {
 	return c.instance.Params(key)
 }
 
-func (c *FiberContext) Query(key, defaultValue string) string {
+func (c *Context) Query(key, defaultValue string) string {
 	return c.instance.Query(key, defaultValue)
 }
 
-func (c *FiberContext) Form(key, defaultValue string) string {
+func (c *Context) Form(key, defaultValue string) string {
 	return c.instance.FormValue(key, defaultValue)
 }
 
-func (c *FiberContext) Bind(obj any) error {
+func (c *Context) Bind(obj any) error {
 	return nil
 }
 
-func (c *FiberContext) SaveFile(name string, dst string) error {
+func (c *Context) SaveFile(name string, dst string) error {
 	file, err := c.File(name)
 	if err != nil {
 		return err
@@ -86,11 +86,11 @@ func (c *FiberContext) SaveFile(name string, dst string) error {
 	return c.instance.SaveFile(file, dst)
 }
 
-func (c *FiberContext) File(name string) (*multipart.FileHeader, error) {
+func (c *Context) File(name string) (*multipart.FileHeader, error) {
 	return c.instance.FormFile(name)
 }
 
-func (c *FiberContext) Header(key, defaultValue string) string {
+func (c *Context) Header(key, defaultValue string) string {
 	header := c.instance.Get(key)
 	if header != "" {
 		return header
@@ -99,7 +99,7 @@ func (c *FiberContext) Header(key, defaultValue string) string {
 	return defaultValue
 }
 
-func (c *FiberContext) Headers() http.Header {
+func (c *Context) Headers() http.Header {
 	mp := make(map[string][]string)
 	headers := c.instance.GetReqHeaders()
 	for key, header := range headers {
@@ -108,15 +108,15 @@ func (c *FiberContext) Headers() http.Header {
 	return mp
 }
 
-func (c *FiberContext) Method() string {
+func (c *Context) Method() string {
 	return c.instance.Method()
 }
 
-func (c *FiberContext) Url() string {
+func (c *Context) Url() string {
 	return c.instance.OriginalURL()
 }
 
-func (c *FiberContext) FullUrl() string {
+func (c *Context) FullUrl() string {
 	prefix := "https://"
 	if !c.instance.Secure() {
 		prefix = "http://"
@@ -129,19 +129,19 @@ func (c *FiberContext) FullUrl() string {
 	return prefix + string(c.instance.Request().Host()) + string(c.instance.Request().RequestURI())
 }
 
-func (c *FiberContext) AbortWithStatus(code int) {
+func (c *Context) AbortWithStatus(code int) {
 	c.instance.Status(code)
 }
 
-func (c *FiberContext) Next() error {
+func (c *Context) Next() error {
 	return c.instance.Next()
 }
 
-func (c *FiberContext) Cookies(key string, defaultValue ...string) string {
+func (c *Context) Cookies(key string, defaultValue ...string) string {
 	return c.instance.Cookies(key, defaultValue...)
 }
 
-func (c *FiberContext) Cookie(co *contracthttp.Cookie) {
+func (c *Context) Cookie(co *contracthttp.Cookie) {
 	c.instance.Cookie(&fiber.Cookie{
 		Name:        co.Name,
 		Value:       co.Value,
@@ -156,51 +156,51 @@ func (c *FiberContext) Cookie(co *contracthttp.Cookie) {
 	})
 }
 
-func (c *FiberContext) Path() string {
+func (c *Context) Path() string {
 	return string(c.instance.Request().URI().Path())
 }
 
-func (c *FiberContext) EngineContext() any {
+func (c *Context) EngineContext() any {
 	return c.instance
 }
 
-func (c *FiberContext) Secure() bool {
+func (c *Context) Secure() bool {
 	return c.instance.Secure()
 }
 
-func (c *FiberContext) Ip() string {
+func (c *Context) Ip() string {
 	return c.instance.IP()
 }
 
-func (c *FiberContext) String(code int, format string, values ...any) error {
+func (c *Context) String(code int, format string, values ...any) error {
 	return c.instance.Status(code).SendString(fmt.Sprintf(format, values...))
 }
 
-func (c *FiberContext) Json(code int, obj any) error {
+func (c *Context) Json(code int, obj any) error {
 	return c.instance.Status(code).JSON(obj)
 }
 
-func (c *FiberContext) SendFile(filepath string, compress ...bool) error {
+func (c *Context) SendFile(filepath string, compress ...bool) error {
 	return c.instance.SendFile(filepath, compress...)
 }
 
-func (c *FiberContext) Download(filepath, filename string) error {
+func (c *Context) Download(filepath, filename string) error {
 	return c.instance.Download(filepath, filename)
 }
 
-func (c *FiberContext) StatusCode() int {
+func (c *Context) StatusCode() int {
 	return c.instance.Response().StatusCode()
 }
 
-func (c *FiberContext) Render(name string, bind any, layouts ...string) error {
+func (c *Context) Render(name string, bind any, layouts ...string) error {
 	return c.instance.Render(name, bind, layouts...)
 }
 
-func (c *FiberContext) SetHeader(key, value string) contracthttp.Context {
+func (c *Context) SetHeader(key, value string) contracthttp.Context {
 	c.instance.Set(key, value)
 	return c
 }
 
-func (c *FiberContext) Vary(key string, value ...string) {
+func (c *Context) Vary(key string, value ...string) {
 	c.instance.Vary(key)
 }

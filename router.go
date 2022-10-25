@@ -10,17 +10,16 @@ import (
 
 	httpcontract "github.com/sujit-baniya/framework/contracts/http"
 	"github.com/sujit-baniya/framework/contracts/route"
-	frameworkhttp "github.com/sujit-baniya/framework/http"
 )
 
-type Fiber struct {
+type Router struct {
 	route.Route
 	instance *fiber.App
 }
 
-func NewFiber(config ...fiber.Config) route.Engine {
+func New(config ...fiber.Config) route.Engine {
 	engine := fiber.New(config...)
-	return &Fiber{instance: engine, Route: NewFiberGroup(
+	return &Router{instance: engine, Route: NewFiberGroup(
 		engine,
 		"/",
 		[]httpcontract.HandlerFunc{},
@@ -28,11 +27,11 @@ func NewFiber(config ...fiber.Config) route.Engine {
 	)}
 }
 
-func (r *Fiber) Run(addr string) error {
+func (r *Router) Run(addr string) error {
 	return r.instance.Listen(addr)
 }
 
-func (r *Fiber) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 }
 
@@ -191,13 +190,13 @@ func middlewaresToFiberHandlers(middlewares []httpcontract.HandlerFunc) []fiber.
 
 func handlerToFiberHandler(handler httpcontract.HandlerFunc) fiber.Handler {
 	return func(ginCtx *fiber.Ctx) error {
-		return handler(frameworkhttp.NewFiberContext(ginCtx))
+		return handler(NewContext(ginCtx))
 	}
 }
 
 func middlewareToFiberHandler(handler httpcontract.HandlerFunc) fiber.Handler {
 	return func(ginCtx *fiber.Ctx) error {
-		return handler(frameworkhttp.NewFiberContext(ginCtx))
+		return handler(NewContext(ginCtx))
 	}
 }
 
