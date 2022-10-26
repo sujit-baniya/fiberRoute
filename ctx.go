@@ -112,6 +112,11 @@ func (c *Context) Method() string {
 	return c.instance.Method()
 }
 
+func (c *Context) Status(code int) contracthttp.Context {
+	c.instance.Status(code)
+	return c
+}
+
 func (c *Context) Url() string {
 	return c.instance.OriginalURL()
 }
@@ -172,12 +177,12 @@ func (c *Context) Ip() string {
 	return c.instance.IP()
 }
 
-func (c *Context) String(code int, format string, values ...any) error {
-	return c.instance.Status(code).SendString(fmt.Sprintf(format, values...))
+func (c *Context) String(format string, values ...any) error {
+	return c.instance.SendString(fmt.Sprintf(format, values...))
 }
 
-func (c *Context) Json(code int, obj any) error {
-	return c.instance.Status(code).JSON(obj)
+func (c *Context) Json(obj any) error {
+	return c.instance.JSON(obj)
 }
 
 func (c *Context) SendFile(filepath string, compress ...bool) error {
