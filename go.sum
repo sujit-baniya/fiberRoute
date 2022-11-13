@@ -20,6 +20,8 @@ github.com/sujit-baniya/framework v1.0.14 h1:1SUr6oJeVGthbVh9ntXLGF4riJg2p60v+aM
 github.com/sujit-baniya/framework v1.0.14/go.mod h1:KGOxMywI3UO7mU6Cvat+whJDe5ayVa0+51NI3j2Hmco=
 github.com/sujit-baniya/framework v1.0.15 h1:sUJKsUU71FAKimf2PxgRMd5wdfnoVMcDxEjSe2qMF38=
 github.com/sujit-baniya/framework v1.0.15/go.mod h1:dw2sHm1t7kVahRTQmTdKIP4hRo/jr9N0Joh+Dxyv4Bo=
+github.com/sujit-baniya/framework v1.0.17 h1:jZ3lHXr9W7cek+V7uxfhb8FYnD4mW2UZSFrwMXrZBDc=
+github.com/sujit-baniya/framework v1.0.17/go.mod h1:XNl79auDfLTAX0WuRgtMVrYmsUyCLICR51/LNiE2Nbc=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasthttp v1.41.0 h1:zeR0Z1my1wDHTRiamBCXVglQdbUwgb9uWG3k1HQz6jY=
@@ -36,6 +38,8 @@ golang.org/x/sys v0.0.0-20220728004956-3c1f35247d10/go.mod h1:oPkhp1MJrh7nUepCBc
 golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.1.0 h1:kunALQeHf1/185U1i0GOB/fy1IPRDDpuoOOqRReG57U=
 golang.org/x/sys v0.1.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.2.0 h1:ljd4t30dBnAvMZaQCevtY0xLLD0A+bRZXbgLMLU1F/A=
+golang.org/x/sys v0.2.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
 golang.org/x/text v0.3.6/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=

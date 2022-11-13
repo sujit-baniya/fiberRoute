@@ -2,6 +2,7 @@ package fiberRoute
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io"
 	"mime/multipart"
@@ -15,6 +16,10 @@ import (
 
 type Context struct {
 	instance *fiber.Ctx
+}
+
+func (c *Context) Context() context.Context {
+	return c.instance.UserContext()
 }
 
 func (c *Context) Origin() *http.Request {
